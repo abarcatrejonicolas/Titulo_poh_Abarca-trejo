@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TesisADM · UNASAM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#12355b; --navy2:#0c2541; --gold:#c8a24a; --gold-soft:#f6efdc;
+  --ink:#1d2430; --muted:#5b6575; --line:#dfe3ea; --bg:#f4f6f9; --card:#ffffff;
+  --ok:#1f7a4d; --ok-bg:#e6f4ec; --warn:#9a5b00; --warn-bg:#fff4e0; --bad:#a32020; --bad-bg:#fdeaea;
+  --radius:12px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:"Source Sans 3",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.5}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;margin:0}
+a{color:var(--navy)}
+header.top{background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;padding:22px 20px 0}
+.wrap{max-width:1100px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{width:46px;height:46px;border-radius:10px;background:var(--gold);color:var(--navy2);display:grid;place-items:center;font-family:"Source Serif 4",serif;font-weight:700;font-size:20px;flex:none}
+.brand h1{font-size:26px;letter-spacing:.2px}
+.brand p{margin:2px 0 0;color:#cfd9e6;font-size:14.5px}
+nav.tabs{display:flex;gap:4px;margin-top:18px;overflow-x:auto;scrollbar-width:thin}
+nav.tabs a{color:#dbe4ef;text-decoration:none;padding:10px 14px;border-radius:10px 10px 0 0;font-weight:600;font-size:15px;white-space:nowrap}
+nav.tabs a:hover{background:rgba(255,255,255,.08)}
+nav.tabs a.active{background:var(--bg);color:var(--navy)}
+nav.tabs a .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.15);font-size:12px;margin-right:6px}
+nav.tabs a.active .n{background:var(--navy);color:#fff}
+main{padding:22px 20px 60px}
+section.view{display:none}
+section.view.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:18px}
+.card h2{font-size:20px;color:var(--navy);margin-bottom:4px}
+.card .sub{color:var(--muted);font-size:14.5px;margin:0 0 14px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:820px){.g2,.g3,.g4{grid-template-columns:1fr}}
+label.f{display:block;font-weight:600;font-size:14px;margin-bottom:4px}
+label.f small{font-weight:400;color:var(--muted)}
+input[type=text],select,textarea{width:100%;font:inherit;font-size:15px;padding:9px 11px;border:1px solid #c9d0db;border-radius:9px;background:#fff;color:var(--ink)}
+textarea{resize:vertical;min-height:62px}
+input:focus,select:focus,textarea:focus{outline:2px solid #9db8d8;border-color:#7d9cc2}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg label{display:flex;align-items:center;gap:8px;border:1px solid #c9d0db;border-radius:10px;padding:9px 12px;cursor:pointer;background:#fff;font-weight:600;font-size:14.5px}
+.seg label:has(input:checked){border-color:var(--navy);background:#eaf0f7;color:var(--navy)}
+.seg input{accent-color:var(--navy)}
+.authors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:820px){.authors{grid-template-columns:1fr 1fr}}
+.authors label{border:1px solid #c9d0db;border-radius:12px;padding:12px;cursor:pointer;background:#fff;display:block}
+.authors label:has(input:checked){border-color:var(--navy);box-shadow:0 0 0 2px var(--navy) inset;background:#f3f7fb}
+.authors input{position:absolute;opacity:0;pointer-events:none}
+.authors b{display:block;color:var(--navy);font-size:15.5px}
+.authors span{display:block;font-size:13px;color:var(--muted);line-height:1.35;margin-top:3px}
+.authors .tag{display:inline-block;margin-top:6px;font-size:11.5px;font-weight:700;background:var(--gold-soft);color:#7a5a12;padding:2px 7px;border-radius:20px}
+.var{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:#fbfcfe}
+.var-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.var-head h3{font-size:16px;color:var(--navy)}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:20px;background:#e3eaf3;color:var(--navy)}
+.pill.y{background:var(--gold-soft);color:#7a5a12}
+.dimrow{display:grid;grid-template-columns:1.1fr 110px 1.6fr 34px;gap:8px;margin-bottom:8px;align-items:start}
+@media (max-width:820px){.dimrow{grid-template-columns:1fr 90px 34px}.dimrow .ind{grid-column:1/3}}
+.dimhead{display:grid;grid-template-columns:1.1fr 110px 1.6fr 34px;gap:8px;font-size:12.5px;color:var(--muted);font-weight:600;margin-bottom:4px}
+@media (max-width:820px){.dimhead{display:none}}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:9px;padding:9px 14px;font-weight:600;font-size:14.5px}
+.btn:hover{background:var(--navy2)}
+.btn.ghost{background:#fff;color:var(--navy)}
+.btn.ghost:hover{background:#eef3f9}
+.btn.sm{padding:6px 10px;font-size:13.5px}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--navy2)}
+.x{border:1px solid #d6dbe3;background:#fff;border-radius:8px;width:34px;height:38px;color:var(--bad);font-size:18px;line-height:1}
+.x:hover{background:var(--bad-bg)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.spacer{flex:1}
+.note{border-left:4px solid var(--gold);background:var(--gold-soft);padding:10px 12px;border-radius:8px;font-size:14.5px;margin:10px 0}
+.note.blue{border-color:#7d9cc2;background:#eef3f9}
+.note.warn{border-color:#d08a1a;background:var(--warn-bg)}
+.note.bad{border-color:var(--bad);background:var(--bad-bg)}
+.out h3{font-size:17px;color:var(--navy);margin:18px 0 8px}
+.out h3:first-child{margin-top:0}
+.item{display:flex;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#fff}
+.item .code{flex:none;font-weight:700;color:var(--navy);min-width:44px}
+.item .txt{flex:1}
+.h0{color:#4a5568;background:#f7f8fa}
+.titles .t{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;background:#fff}
+.titles .t.chosen{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset}
+.titles .tt{font-family:"Source Serif 4",serif;font-size:18px;font-weight:600;color:var(--ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chip{font-size:12.5px;padding:2px 9px;border-radius:20px;background:var(--ok-bg);color:var(--ok);font-weight:600}
+.chip.w{background:var(--warn-bg);color:var(--warn)}
+.chip.b{background:var(--bad-bg);color:var(--bad)}
+details.resp{border:1px solid #d9cfae;background:#fffdf7;border-radius:10px;padding:0;margin-top:14px}
+details.resp summary{cursor:pointer;padding:10px 14px;font-weight:700;color:#6e5212;list-style:none}
+details.resp summary::-webkit-details-marker{display:none}
+details.resp summary:before{content:"📖 ";}
+details.resp .in{padding:0 14px 12px}
+details.resp ul{margin:6px 0 8px;padding-left:18px}
+details.resp li{margin-bottom:6px;font-size:14.5px}
+.ref{font-size:13.5px;color:#4a4a4a;border-top:1px dashed #e2d6b4;padding-top:8px;margin-top:6px}
+.ref a{font-weight:600}
+table.tb{width:100%;border-collapse:collapse;font-size:14px;background:#fff}
+table.tb th,table.tb td{border:1px solid #b8c2d0;padding:8px;vertical-align:top;text-align:left}
+table.tb th{background:#e8eef6;color:var(--navy);font-weight:700}
+table.tb ol,table.tb ul{margin:4px 0;padding-left:18px}
+.scroll{overflow-x:auto}
+/* --- Ejemplos y tarjetas de variables (estilo nuevo) --- */
+.exbox{border:1px solid #c9d6e6;border-left:4px solid #6f93bd;background:#f3f6fb;border-radius:12px;padding:16px 18px;margin-bottom:18px}
+.exbox .hint{color:var(--muted);font-size:13.5px;margin:10px 0 0}
+.vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:14px}
+@media (max-width:820px){.vgrid{grid-template-columns:1fr}}
+.vcard{background:#fff;border:1px solid var(--line);border-top:4px solid #6f93bd;border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(18,53,91,.06)}
+.vcard.yv{border-top-color:var(--gold)}
+.vcard-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}
+.vcard-h h3{font-family:"Source Sans 3",sans-serif;font-size:19px;font-weight:700;color:#24364f}
+.vcard-h .role{font-size:12px;font-weight:700;color:var(--muted)}
+.vcard label.f{font-size:15px;margin:10px 0 6px}
+.vcard input[type=text]{padding:12px 14px;font-size:16px;border-radius:10px}
+.drow{display:grid;grid-template-columns:1fr 46px;gap:10px;margin-bottom:10px}
+.xbtn{border:1px solid #f1c9c9;background:#fff6f6;color:#c0392b;border-radius:10px;font-size:16px;font-weight:700;height:46px}
+.xbtn:hover{background:var(--bad-bg)}
+.addd{border:0;background:#e9f0f8;color:#3f6593;font-weight:700;border-radius:10px;padding:11px 16px;font-size:15px}
+.addd:hover{background:#dce7f3}
+details.adv{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+details.adv summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--muted)}
+.advrow{display:grid;grid-template-columns:1fr 120px;gap:8px;margin-top:8px;align-items:center}
+.advrow .dn{font-size:14px;font-weight:600}
+.advrow input.ind{grid-column:1/3}
+.addvar{border:2px dashed #b9c8da;background:#fff;color:#3f6593;font-weight:700;border-radius:14px;padding:14px;width:100%;font-size:15px}
+.addvar:hover{background:#f3f6fb}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--navy2);color:#fff;padding:10px 16px;border-radius:10px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+.toast.on{opacity:1}
+.credits{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:center}
+@media (max-width:640px){.credits{grid-template-columns:1fr;text-align:center}}
+.avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,var(--navy),#2c5a8c);color:#fff;display:grid;place-items:center;font-family:"Source Serif 4",serif;font-size:46px;font-weight:700;margin:auto;border:4px solid var(--gold);overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.reflist li{margin-bottom:12px}
+.links a{display:inline-block;margin:4px 8px 0 0;font-size:13.5px;font-weight:600}
+footer{color:var(--muted);text-align:center;font-size:13.5px;padding:20px}
+.muted{color:var(--muted)}
+.kbd{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:#eef1f5;padding:1px 6px;border-radius:5px}
+.next{display:flex;justify-content:flex-end;margin-top:6px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">T</div>
+      <div>
+        <h1>TesisADM · UNASAM</h1>
+        <p>Titulador y creadora de preguntas, objetivos e hipótesis · Escuela Profesional de Administración · Huaraz</p>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs">
+      <a href="#datos" data-v="datos"><span class="n">1</span>Datos</a>
+      <a href="#titulador" data-v="titulador"><span class="n">2</span>Titulador</a>
+      <a href="#poh" data-v="poh"><span class="n">3</span>Preguntas, objetivos e hipótesis</a>
+      <a href="#operacionalizacion" data-v="operacionalizacion"><span class="n">4</span>Operacionalización</a>
+      <a href="#matriz" data-v="matriz"><span class="n">5</span>Matriz de consistencia</a>
+      <a href="#creditos" data-v="creditos"><span class="n">6</span>Créditos y respaldo</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ 1. DATOS ============ -->
+<section class="view" id="v-datos">
+  <div class="card">
+    <h2>1. Elige el autor metodológico</h2>
+    <p class="sub">La redacción de títulos, preguntas, objetivos e hipótesis se adapta al autor elegido, y cada resultado muestra la página del libro que lo respalda.</p>
+    <div class="authors" id="authors"></div>
+  </div>
+
+  <div class="card">
+    <h2>2. Nivel de investigación</h2>
+    <p class="sub">La Escuela de Administración de la UNASAM trabaja con los niveles correlacional y explicativo.</p>
+    <div class="seg">
+      <label><input type="radio" name="nivel" value="correlacional"> Correlacional <span class="muted" style="font-weight:400">(relación entre variables)</span></label>
+      <label><input type="radio" name="nivel" value="explicativo"> Explicativo <span class="muted" style="font-weight:400">(influencia / causa–efecto)</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3. Variables, dimensiones e indicadores</h2>
+    <p class="sub" id="varHelp"></p>
+    <div class="exbox">
+      <div class="grid g2">
+        <div><label class="f">Área de Administración</label><select id="exArea"></select></div>
+        <div><label class="f">Tema de ejemplo</label><select id="exTema"></select></div>
+      </div>
+      <div class="row" style="margin-top:12px"><button class="btn ghost" id="exApply">Completar todos los campos con este ejemplo</button></div>
+      <p class="hint">Ejemplos didácticos con organizaciones genéricas. Las dimensiones son orientativas y deben sustentarse con teoría. Se propone un alcance correlacional; la dirección de la relación es una hipótesis por contrastar.</p>
+    </div>
+    <div class="vgrid" id="vgrid"></div>
+    <button class="addvar" id="addX">+ Agregar otra variable (investigación multivariada)</button>
+    <p class="muted" style="font-size:13.5px;margin:10px 0 0">En cada tarjeta, “Opciones avanzadas” permite cambiar el artículo (el, la, los, las), agregar indicadores (separados por <span class="kbd">;</span>) y escribir las definiciones de la variable.</p>
+  </div>
+
+  <div class="card">
+    <h2>4. Contexto: ¿quiénes, dónde y cuándo?</h2>
+    <p class="sub">Villanueva (2020, p. 11) pide que el título identifique los sujetos o el contexto y el tiempo.</p>
+    <div class="grid g2">
+      <div><label class="f">Sujetos de estudio <small>(opcional, con artículo)</small></label><input type="text" id="sujetos" placeholder="los colaboradores administrativos"></div>
+      <div><label class="f">Organización o sector <small>(con artículo)</small></label><input type="text" id="org" placeholder="la Municipalidad Provincial de Huaraz"></div>
+      <div><label class="f">Lugar <small>(se omite si ya aparece en la organización)</small></label><input type="text" id="lugar" placeholder="Huaraz"></div>
+      <div><label class="f">Año o periodo</label><input type="text" id="periodo" placeholder="2026  ·  o  2025-2026"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>5. Opciones de redacción</h2>
+    <div class="grid g3">
+      <div>
+        <label class="f">Preguntas específicas a partir de</label>
+        <select id="modoEsp">
+          <option value="dimY">Dimensiones de V1 con la V2</option>
+          <option value="dimDim">Dimensiones de V1 con dimensiones de V2</option>
+        </select>
+      </div>
+      <div>
+        <label class="f">Forma de la pregunta <small>(según el autor)</small></label>
+        <select id="forma"></select>
+      </div>
+      <div>
+        <label class="f">Tipo de relación en la hipótesis</label>
+        <select id="calif">
+          <option value="positiva">positiva</option>
+          <option value="directa">directa</option>
+          <option value="significativa">significativa</option>
+          <option value="positiva y significativa">positiva y significativa</option>
+          <option value="directa y significativa">directa y significativa</option>
+        </select>
+      </div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <label class="row" style="gap:8px;font-weight:600;cursor:pointer"><input type="checkbox" id="h0" style="width:18px;height:18px;accent-color:var(--navy)"> Mostrar también la hipótesis nula (H0)</label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>6. Metodología <small class="muted" style="font-family:'Source Sans 3';font-weight:400;font-size:14px">(para la matriz de consistencia)</small></h2>
+    <div class="grid g3">
+      <div><label class="f">Tipo de investigación</label><select id="tipo"><option>Aplicada</option><option>Básica</option></select></div>
+      <div><label class="f">Población</label><input type="text" id="poblacion" placeholder="120 colaboradores administrativos"></div>
+      <div><label class="f">Muestra</label><input type="text" id="muestra" placeholder="92 colaboradores (muestreo probabilístico)"></div>
+      <div><label class="f">Técnica</label><input type="text" id="tecnica"></div>
+      <div><label class="f">Instrumento</label><input type="text" id="instrumento"></div>
+      <div><label class="f">Escala de medición</label><input type="text" id="escala"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <button class="btn ghost" id="limpiar">Borrar todo</button>
+    <span class="spacer"></span>
+    <a class="btn gold" href="#titulador" style="text-decoration:none">Ir al Titulador →</a>
+  </div>
+</section>
+
+<!-- ============ 2. TITULADOR ============ -->
+<section class="view" id="v-titulador">
+  <div class="card">
+    <div class="row"><h2>Titulador de proyectos</h2><span class="spacer"></span><span class="pill" id="tAutor"></span><span class="pill y" id="tNivel"></span></div>
+    <p class="sub">Propuestas de título para el nivel elegido, en investigaciones bivariadas o multivariadas. Elige una con <b>“Usar este título”</b>; se usará en la matriz de consistencia.</p>
+    <div id="tWarn"></div>
+    <div class="titles" id="titles"></div>
+    <div id="tResp"></div>
+  </div>
+  <div class="next"><a class="btn gold" href="#poh" style="text-decoration:none">Ir a Preguntas, objetivos e hipótesis →</a></div>
+</section>
+
+<!-- ============ 3. POH ============ -->
+<section class="view" id="v-poh">
+  <div class="card">
+    <div class="row"><h2>Preguntas, objetivos e hipótesis</h2><span class="spacer"></span><span class="pill" id="pAutor"></span><span class="pill y" id="pNivel"></span></div>
+    <p class="sub">A cada pregunta le corresponde un objetivo y una hipótesis, con la misma numeración.</p>
+    <div id="pWarn"></div>
+    <div class="row" style="margin-bottom:10px"><span class="spacer"></span><button class="btn sm" data-copy="pOut">Copiar todo para Word</button></div>
+    <div class="out" id="pOut"></div>
+    <div id="pResp"></div>
+  </div>
+  <div class="next"><a class="btn gold" href="#operacionalizacion" style="text-decoration:none">Ir a Operacionalización →</a></div>
+</section>
+
+<!-- ============ 4. OPERACIONALIZACIÓN ============ -->
+<section class="view" id="v-operacionalizacion">
+  <div class="card">
+    <div class="row"><h2>Operacionalización de variables</h2><span class="spacer"></span><button class="btn sm" data-copy="oOut">Copiar tabla para Word</button></div>
+    <p class="sub">Variable → dimensiones → indicadores. Completa la definición conceptual y la operacional en la pestaña Datos, citando al autor que sustenta cada variable.</p>
+    <div class="scroll" id="oOut"></div>
+    <div id="oResp"></div>
+  </div>
+  <div class="next"><a class="btn gold" href="#matriz" style="text-decoration:none">Ir a la Matriz de consistencia →</a></div>
+</section>
+
+<!-- ============ 5. MATRIZ ============ -->
+<section class="view" id="v-matriz">
+  <div class="card">
+    <div class="row"><h2>Matriz de consistencia</h2><span class="spacer"></span><button class="btn sm" data-copy="mOut">Copiar matriz para Word</button></div>
+    <p class="sub">Revisa que el título, el problema, el objetivo y la hipótesis tengan las mismas variables, y que los específicos lleven la misma numeración.</p>
+    <div class="scroll" id="mOut"></div>
+    <div id="mResp"></div>
+  </div>
+</section>
+
+<!-- ============ 6. CRÉDITOS ============ -->
+<section class="view" id="v-creditos">
+  <div class="card">
+    <h2>Créditos</h2>
+    <div class="credits" style="margin-top:14px">
+      <div class="avatar" id="avatar">NA</div>
+      <div>
+        <div class="muted" style="font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase">Autor de la aplicación</div>
+        <div style="font-family:'Source Serif 4',serif;font-size:26px;font-weight:700;color:var(--navy)">Nicolás Abarca Trejo</div>
+        <div class="muted">TesisADM · UNASAM — herramienta de apoyo para estudiantes de la Escuela Profesional de Administración</div>
+        <div class="note blue" style="margin-top:10px">Universidad Nacional Santiago Antúnez de Mayolo (UNASAM) · Facultad de Administración y Turismo · Escuela Profesional de Administración · Huaraz, Áncash, Perú.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Autores que respaldan la app</h2>
+    <p class="sub">Cada indicación muestra el autor y la página. Los enlaces abren la ficha del libro en un catálogo para que verifiques el autor, la edición y el ISBN; para leer la página exacta, usa tu ejemplar.</p>
+    <ol class="reflist" id="refList"></ol>
+  </div>
+
+  <div class="card">
+    <h2>Respaldo UNASAM</h2>
+    <ul class="reflist">
+      <li><b>Niveles correlacional y explicativo.</b> Tesis y artículos de la UNASAM en Administración usan estos niveles. Ejemplos:
+        <ul>
+          <li>Correlacional (pregrado): <i>Capacitación y desempeño laboral del personal administrativo en la Universidad Nacional Santiago Antúnez de Mayolo, Áncash, Huaraz, 2022</i>. <span class="links"><a href="https://repositorioslatinoamericanos.uchile.cl/handle/2250/9477881" target="_blank" rel="noopener">Ver registro</a></span></li>
+          <li>Explicativo (maestría): <i>Sistema de control interno y su influencia en la gestión administrativa de la Universidad Nacional “Santiago Antúnez de Mayolo”, periodo 2014-2015 - Huaraz</i>. <span class="links"><a href="https://repositorio.unasam.edu.pe/bitstream/handle/UNASAM/2428/T033_43092869_M.pdf?sequence=1" target="_blank" rel="noopener">Ver tesis</a></span></li>
+          <li>Explicativo (artículo): <i>Marketing personal y empleo de los graduados de la Escuela Profesional de Administración, UNASAM, 2014</i>. <span class="links"><a href="https://revistas.unasam.edu.pe/index.php/Aporte_Santiaguino/article/download/207/597/2157" target="_blank" rel="noopener">Ver artículo</a></span></li>
+        </ul>
+      </li>
+      <li><b>Nivel descriptivo.</b> No se incluye por indicación docente para la carrera de Administración de la UNASAM. Confírmalo con tu asesor.</li>
+      <li><b>Repositorio institucional:</b> <span class="links"><a href="https://repositorio.unasam.edu.pe/" target="_blank" rel="noopener">repositorio.unasam.edu.pe</a></span></li>
+    </ul>
+  </div>
+
+  <div class="note warn">TesisADM es una herramienta académica independiente, no es una página oficial de la UNASAM. Es una herramienta de apoyo: propone redacciones a partir de lo que escribes. La versión final de tu proyecto debe revisarla y aprobarla tu asesor.</div>
+</section>
+
+</main>
+<footer>TesisADM · UNASAM — Herramienta independiente desarrollada por <b>Nicolás Abarca Trejo</b> (no es una página oficial de la UNASAM) ·Basado en Villanueva (2020), Vara Horna (2015), Bernal (2010) y Hernández Sampieri et al. (2019)</footer>
+<div class="toast" id="toast">Copiado</div>
+
+<script>
+/* =========================================================
+   FUENTES (autor, referencia APA 7, enlaces y respaldo por página)
+   ========================================================= */
+var SRC = {
+  villanueva: {
+    nombre: "Villanueva (2020)", cita: "Villanueva", anio: 2020, tag: "UNASAM",
+    desc: "Libro de la Facultad de Administración y Turismo de la UNASAM.",
+    ref: "Villanueva, L. A. (2020). <i>Diseño del proyecto e informe de investigación: una aplicación a las ciencias empresariales</i>. Universidad Nacional Santiago Antúnez de Mayolo, Facultad de Administración y Turismo.",
+    links: [
+      {t: "Buscar en el Repositorio UNASAM", u: "https://repositorio.unasam.edu.pe/search?query=Villanueva%20Benites"},
+      {t: "Buscar en Google Académico", u: "https://scholar.google.com/scholar?q=%22Dise%C3%B1o+del+proyecto+e+informe+de+investigaci%C3%B3n%22+Villanueva+Benites"}
+    ],
+    r: {
+      titulo: [
+        ["p. 11", "El título debe permitir identificar la o las variables, su relación mediante un conector (usualmente “y”), los sujetos o el contexto y el tiempo."],
+        ["pp. 11-12", "Ejemplos de títulos con variables, lugar y año, como “La motivación y el rendimiento laboral… de la ciudad de Huaraz, año 2019”."]
+      ],
+      preguntas: [
+        ["pp. 22-23", "La pregunta general debe ser clara y concreta, ajustarse al marco espacial y temporal y no poder responderse con un simple sí o no."],
+        ["pp. 23-24", "Los problemas específicos se obtienen desagregando la pregunta general según las variables y sus dimensiones."],
+        ["pp. 24-25", "Formas de redacción por nivel: correlacional (“¿Qué relación existe entre…?”, “¿Cómo se relaciona X con Y…?”) y explicativo (“¿De qué manera influye…?”, “¿Cómo influye…?”, “¿Qué efectos produce…?”)."]
+      ],
+      objetivos: [
+        ["pp. 55-56", "Los objetivos se redactan con verbos en infinitivo. A cada problema le corresponde un objetivo: al general, el objetivo general; a cada específico, un objetivo específico."],
+        ["pp. 56-57", "Tablas de conversión problema–objetivo: “¿Cómo influye x en y?” → “Analizar la influencia de x en y”; “¿Qué relación existe entre x y y?” → “Establecer la relación entre x y y”."]
+      ],
+      hipotesis: [
+        ["pp. 41-42", "Las hipótesis correlacionales expresan relación entre dos o más variables sin orden causal; las explicativas sí distinguen causa y efecto."],
+        ["pp. 43-44", "La hipótesis nula (H0) es el reverso de la hipótesis de investigación (Hi): niega lo que esta afirma."],
+        ["p. 45", "Hipótesis general y específicas: las específicas responden a los problemas específicos y pueden ser tantas como los indicadores (dimensiones) de la variable independiente."]
+      ],
+      operacionalizacion: [
+        ["p. 51", "Operacionalizar es traducir la variable a indicadores: definición conceptual → dimensiones → indicadores → índices."],
+        ["p. 52", "Secuencia Variable – Dimensión – Indicador – Índice, con ejemplo de tabla de operacionalización."]
+      ],
+      matriz: [
+        ["pp. 96-97", "La matriz de consistencia verifica la coherencia entre título, problema, objetivos, hipótesis, variables y metodología; los específicos llevan los mismos códigos."],
+        ["p. 67", "Diseño transeccional correlacional-causal: describe relaciones entre variables en un momento dado, sean correlacionales o causales."]
+      ]
+    }
+  },
+  vara: {
+    nombre: "Vara Horna (2015)", cita: "Vara Horna", anio: 2015, tag: "Ciencias empresariales",
+    desc: "Guía paso a paso orientada a tesis de Administración y Negocios.",
+    ref: "Vara Horna, A. A. (2015). <i>Los 7 pasos para elaborar una tesis</i>. Empresa Editora Macro. ISBN 978-612-304-311-7",
+    links: [
+      {t: "Ficha en Google Libros (ISBN)", u: "https://books.google.com/books?vid=ISBN9786123043117"},
+      {t: "Ficha en WorldCat (ISBN)", u: "https://search.worldcat.org/search?q=bn%3A9786123043117"}
+    ],
+    r: {
+      titulo: [
+        ["pp. 226-227", "Tabla 3.6: el título es informativo y conciso (unas 20 palabras como máximo), sin siglas, con pocos signos de puntuación, y contiene el qué (variables), el quién (sujetos) y el dónde (lugar)."],
+        ["pp. 246-247", "Los estudios explicativos usan términos como “influir”, “efectos” o “causar”; ejemplo: “Influencia de… en…”."]
+      ],
+      preguntas: [
+        ["pp. 206-207", "La formulación del problema se compone de oraciones interrogativas y se delimita en espacio, tiempo y contexto."],
+        ["pp. 208-209", "Técnica estructural: si el problema es amplio, se segmenta en áreas y cada área es un problema específico."]
+      ],
+      objetivos: [
+        ["p. 212", "Regla: a cada problema formulado le corresponde un objetivo."],
+        ["pp. 213-214", "Los objetivos empiezan con un verbo en infinitivo y se obtienen transformando la pregunta: “¿Existe…?” pasa a “Determinar…”."],
+        ["pp. 214-215", "Un objetivo bien formulado responde: ¿qué?, ¿en quién? y ¿dónde?"]
+      ],
+      hipotesis: [
+        ["pp. 180-181", "Las hipótesis son respuestas tentativas a las preguntas y deben ser coherentes con los problemas y los objetivos."],
+        ["p. 188", "Ejemplos: correlacional (“Existe relación directa entre…”) y explicativa (“…influye directamente en…”)."]
+      ]
+    }
+  },
+  bernal: {
+    nombre: "Bernal (2010)", cita: "Bernal", anio: 2010, tag: "Administración y economía",
+    desc: "Metodología para administración, economía, humanidades y ciencias sociales.",
+    ref: "Bernal, C. A. (2010). <i>Metodología de la investigación: administración, economía, humanidades y ciencias sociales</i> (3.ª ed.). Pearson Educación. ISBN 978-958-699-128-5",
+    links: [
+      {t: "Ficha en Google Libros (ISBN)", u: "https://books.google.com/books?vid=ISBN9789586991285"},
+      {t: "Ficha de catálogo (Universidad de El Salvador)", u: "https://harvester.ues.edu.sv/vufind/Record/34412"}
+    ],
+    r: {
+      titulo: [
+        ["p. 83", "El título condensa la esencia del tema: es general en cuanto al tema y específico en cuanto al problema que se investigará."]
+      ],
+      preguntas: [
+        ["p. 89", "La formulación tiene dos niveles: una pregunta general, que recoge la esencia del problema y del título, y preguntas específicas sobre aspectos concretos."]
+      ],
+      objetivos: [
+        ["p. 99", "El objetivo general refleja la esencia del problema y del título; los específicos se desprenden del general y en conjunto lo logran."],
+        ["p. 100", "Ejemplos de objetivos con verbos como analizar, identificar y evaluar (“Evaluar el impacto de…”)."]
+      ],
+      hipotesis: [
+        ["p. 136", "Se formulan hipótesis cuando se quiere probar la relación o el efecto de unas variables sobre otras."],
+        ["p. 137", "Notación: hipótesis de trabajo (HA) e hipótesis nula (Ho), que afirma lo contrario de la de trabajo."]
+      ]
+    }
+  },
+  sampieri: {
+    nombre: "Hernández Sampieri et al. (2019)", cita: "Hernández Sampieri et al.", anio: 2019, tag: "Básico y didáctico",
+    desc: "Explica paso a paso cómo convertir la pregunta en objetivo e hipótesis.",
+    ref: "Hernández Sampieri, R., Mendoza Torres, P., Méndez Valencia, S. y Cuevas Romo, A. (2019). <i>Metodología de la investigación para bachillerato</i> (2.ª ed.). McGraw-Hill Interamericana. ISBN 978-1-4562-6965-4",
+    links: [
+      {t: "Ficha en Google Libros (ISBN)", u: "https://books.google.com/books?vid=ISBN9781456269654"},
+      {t: "Ficha en WorldCat (ISBN)", u: "https://search.worldcat.org/search?q=bn%3A9781456269654"}
+    ],
+    r: {
+      titulo: [
+        ["p. 163", "El título debe sintetizar la idea principal del estudio."]
+      ],
+      preguntas: [
+        ["pp. 44-45", "La pregunta de investigación es lo que el estudio busca responder; suele plantearse con ¿qué?, ¿por qué? o ¿cómo? y debe ser específica."]
+      ],
+      objetivos: [
+        ["pp. 45-46", "El objetivo se obtiene quitando los signos de interrogación a la pregunta y anteponiendo un verbo en infinitivo (determinar, analizar, relacionar…). Debe haber tantos objetivos como preguntas."]
+      ],
+      hipotesis: [
+        ["pp. 65-66", "La hipótesis es la respuesta tentativa a la pregunta, basada en el marco teórico, y relaciona variables observables o medibles."],
+        ["pp. 66-67", "Debe haber tantas hipótesis como preguntas; se simbolizan Hi o H1, H2, H3…"]
+      ]
+    }
+  }
+};
+var AUTH_ORDER = ["villanueva", "vara", "bernal", "sampieri"];
+
+/* =========================================================
+   UTILIDADES DE REDACCIÓN
+   ========================================================= */
+var EL_EXC = ["clima","sistema","programa","problema","tema","esquema","día","mapa","planeta","idioma","dilema","emblema","lema","poema","teorema","enfoque"];
+var LA_EXC = ["imagen","gestión","red","sociedad","mujer","calidad","parte","fuente","base","clave","mente","gente","clase","fase","llave","nube","sede","suerte","muerte","noche","leche","carne","nieve","ley","fe","piel","sal","miel","cárcel","orden","flor","labor","razón","canción","inversión"];
+function guessArt(name){
+  var w = (name || "").trim().split(/\s+/)[0] || "";
+  var l = w.toLowerCase();
+  if (!l) return "la";
+  if (/^[A-ZÁÉÍÓÚÑ]{2,}$/.test(w)) return "el";
+  if (EL_EXC.indexOf(l) >= 0) return "el";
+  if (LA_EXC.indexOf(l) >= 0) return "la";
+  if (/(ones|des|as)$/.test(l)) return "las";
+  if (/s$/.test(l)) return "los";
+  if (/(a|ión|dad|tad|tud|umbre|sis|ez)$/.test(l)) return "la";
+  return "el";
+}
+function lowerFirst(s){
+  s = (s || "").trim();
+  if (!s) return s;
+  if (s.length > 1 && /[A-ZÁÉÍÓÚÑ]/.test(s[1])) return s; // sigla
+  return s[0].toLowerCase() + s.slice(1);
+}
+function upperFirst(s){
+  s = (s || "").trim();
+  var i = s[0] === "¿" ? 1 : 0;
+  return s.slice(0, i) + (s[i] || "").toUpperCase() + s.slice(i + 1);
+}
+function artOf(o){ return (!o.art || o.art === "auto") ? guessArt(o.nombre || o.n) : o.art; }
+function withArt(o){
+  var n = lowerFirst(o.nombre || o.n || "");
+  var a = artOf(o);
+  if (!n) return "[variable]";
+  return a === "-" ? n : a + " " + n;
+}
+function startsWithI(s){ return /^(i|hi)(?![aeiouáéíóú])/i.test((s || "").trim()); }
+function conj(s){ return startsWithI(s) ? " e " : " y "; }
+function yJoin(arr){
+  arr = arr.filter(Boolean);
+  if (arr.length <= 1) return arr[0] || "";
+  var head = arr.slice(0, -1).join(", ");
+  var last = arr[arr.length - 1];
+  return head + conj(last) + last;
+}
+function fix(s){
+  return (s || "")
+    .replace(/\s+/g, " ")
+    .replace(/\s+([,.?])/g, "$1")
+    .replace(/\b([Dd])e el\b/g, "$1el")
+    .replace(/\b([Aa]) el\b/g, "$1l")
+    .replace(/,\s*,/g, ",")
+    .trim();
+}
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
+
+/* =========================================================
+   ESTADO
+   ========================================================= */
+function blankVar(){ return {nombre: "", art: "auto", defc: "", defo: "", dims: [{n: "", art: "auto", ind: ""}]}; }
+var DEFAULT = {
+  autor: "villanueva", nivel: "correlacional",
+  xs: [blankVar()], y: blankVar(),
+  sujetos: "", org: "", lugar: "Huaraz", periodo: "2026",
+  modoEsp: "dimY", forma: 0, calif: "positiva", h0: true,
+  tipo: "Aplicada", poblacion: "", muestra: "", tecnica: "Encuesta", instrumento: "Cuestionario", escala: "Ordinal (tipo Likert)",
+  titulo: ""
+};
+var S = JSON.parse(JSON.stringify(DEFAULT));
+var STORE_KEY = "tesisadm-unasam-v1";
+function save(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch(e){} }
+function load(){
+  try {
+    var raw = localStorage.getItem(STORE_KEY);
+    if (raw){ var o = JSON.parse(raw); for (var k in DEFAULT) if (o[k] !== undefined) S[k] = o[k]; }
+  } catch(e){}
+  if (S.nivel !== "correlacional" && S.nivel !== "explicativo") S.nivel = "correlacional";
+}
+
+/* =========================================================
+   CONTEXTO
+   ========================================================= */
+function periodoTxt(){
+  var p = (S.periodo || "").trim();
+  if (!p) return "[año]";
+  return /\d{4}\s*[-–]\s*\d{4}/.test(p) ? "periodo " + p.replace(/\s*[-–]\s*/, "-") : p;
+}
+function lugarTxt(){
+  var l = (S.lugar || "").trim(), o = (S.org || "").toLowerCase();
+  if (!l || o.indexOf(l.toLowerCase()) >= 0) return "";
+  return ", " + l;
+}
+function orgTxt(){ return (S.org || "").trim() || "[organización]"; }
+function ctx(){
+  var s = (S.sujetos || "").trim();
+  var base = s ? "de " + s + " de " + orgTxt() : "en " + orgTxt();
+  return base + lugarTxt() + ", " + periodoTxt();
+}
+
+/* =========================================================
+   PLANTILLAS POR AUTOR
+   A = sujeto/variable(s) 1, B = variable 2, c = contexto, pl = plural
+   ========================================================= */
+function v(pl, s, p){ return pl ? p : s; }
+function adv(calif){
+  return {"positiva":"positivamente","directa":"directamente","significativa":"significativamente",
+          "positiva y significativa":"positiva y significativamente","directa y significativa":"directa y significativamente"}[calif] || "positivamente";
+}
+var T = {
+  villanueva: {
+    hi: "Hi", h0: "H0",
+    correlacional: [
+      {lab: "¿Qué relación existe entre… y…?", q: function(A,B,c){ return "¿Qué relación existe entre " + A + conj(B) + B + " " + c + "?"; }, o: function(A,B,c){ return "Establecer la relación entre " + A + conj(B) + B + " " + c + "."; }},
+      {lab: "¿Cómo se relaciona… con…?", q: function(A,B,c,pl){ return "¿Cómo " + v(pl,"se relaciona","se relacionan") + " " + A + " con " + B + " " + c + "?"; }, o: function(A,B,c){ return "Determinar la relación de " + A + " con " + B + " " + c + "."; }},
+      {lab: "¿De qué manera se vinculan… y…?", q: function(A,B,c){ return "¿De qué manera se vinculan " + A + conj(B) + B + " " + c + "?"; }, o: function(A,B,c){ return "Establecer la vinculación entre " + A + conj(B) + B + " " + c + "."; }},
+      {lab: "¿Cómo se asocian… y…?", q: function(A,B,c){ return "¿Cómo se asocian " + A + conj(B) + B + " " + c + "?"; }, o: function(A,B,c){ return "Determinar la asociación entre " + A + conj(B) + B + " " + c + "."; }}
+    ],
+    explicativo: [
+      {lab: "¿De qué manera… influye en…?", q: function(A,B,c,pl){ return "¿De qué manera " + A + " " + v(pl,"influye","influyen") + " en " + B + " " + c + "?"; }, o: function(A,B,c){ return "Explicar la influencia de " + A + " en " + B + " " + c + "."; }},
+      {lab: "¿Cómo influye… en…?", q: function(A,B,c,pl){ return "¿Cómo " + v(pl,"influye","influyen") + " " + A + " en " + B + " " + c + "?"; }, o: function(A,B,c){ return "Analizar la influencia de " + A + " en " + B + " " + c + "."; }},
+      {lab: "¿Qué efectos produce… en…?", q: function(A,B,c,pl){ return "¿Qué efectos " + v(pl,"produce","producen") + " " + A + " en " + B + " " + c + "?"; }, o: function(A,B,c){ return "Explicar los efectos de " + A + " en " + B + " " + c + "."; }},
+      {lab: "¿En qué grado favorece… a…?", q: function(A,B,c,pl){ return "¿En qué grado " + v(pl,"favorece","favorecen") + " " + A + " a " + B + " " + c + "?"; }, o: function(A,B,c,pl){ return "Establecer el grado en que " + A + " " + v(pl,"favorece","favorecen") + " a " + B + " " + c + "."; }}
+    ],
+    hyp: {
+      correlacional: function(A,B,c,pl,k){ return ["Existe una relación " + k + " entre " + A + conj(B) + B + " " + c + ".", "No existe una relación " + k + " entre " + A + conj(B) + B + " " + c + "."]; },
+      explicativo: function(A,B,c,pl,k){ return [A + " " + v(pl,"influye","influyen") + " " + adv(k) + " en " + B + " " + c + ".", A + " no " + v(pl,"influye","influyen") + " " + adv(k) + " en " + B + " " + c + "."]; }
+    }
+  },
+  vara: {
+    hi: "Hi", h0: "H0",
+    correlacional: [
+      {lab: "¿Existe relación entre… y…?", nota: "Villanueva (2020, p. 23) recomienda evitar preguntas que se respondan con sí o no. Si tu asesor sigue ese criterio, usa la otra forma.", q: function(A,B,c){ return "¿Existe relación entre " + A + conj(B) + B + " " + c + "?"; }, o: function(A,B,c){ return "Determinar la relación entre " + A + conj(B) + B + " " + c + "."; }},
+      {lab: "¿Qué relación existe entre… y…?", q: function(A,B,c){ return "¿Qué relación existe entre " + A + conj(B) + B + " " + c + "?"; }, o: function(A,B,c){ return "Determinar la relación entre " + A + conj(B) + B + " " + c + "."; }}
+    ],
+    explicativo: [
+      {lab: "¿Cuál es la influencia de… en…?", q: function(A,B,c){ return "¿Cuál es la influencia de " + A + " en " + B + " " + c + "?"; }, o: function(A,B,c){ return "Determinar la influencia de " + A + " en " + B + " " + c + "."; }},
+      {lab: "¿Cuáles son los efectos de… en…?", q: function(A,B,c){ return "¿Cuáles son los efectos de " + A + " en " + B + " " + c + "?"; }, o: function(A,B,c){ return "Determinar los efectos de " + A + " en " + B + " " + c + "."; }}
+    ],
+    hyp: {
+      correlacional: function(A,B,c,pl,k){ return ["Existe relación " + k + " entre " + A + conj(B) + B + " " + c + ".", "No existe relación " + k + " entre " + A + conj(B) + B + " " + c + "."]; },
+      explicativo: function(A,B,c,pl,k){ return [A + " " + v(pl,"influye","influyen") + " " + adv(k) + " en " + B + " " + c + ".", A + " no " + v(pl,"influye","influyen") + " " + adv(k) + " en " + B + " " + c + "."]; }
+    }
+  },
+  bernal: {
+    hi: "HA", h0: "Ho",
+    correlacional: [
+      {lab: "¿Qué relación existe entre… y…?", q: function(A,B,c){ return "¿Qué relación existe entre " + A + conj(B) + B + " " + c + "?"; }, o: function(A,B,c){ return "Analizar la relación entre " + A + conj(B) + B + " " + c + "."; }},
+      {lab: "¿Cómo se relaciona… con…?", q: function(A,B,c,pl){ return "¿Cómo " + v(pl,"se relaciona","se relacionan") + " " + A + " con " + B + " " + c + "?"; }, o: function(A,B,c){ return "Identificar la relación de " + A + " con " + B + " " + c + "."; }}
+    ],
+    explicativo: [
+      {lab: "¿Cuál es el impacto de… en…?", q: function(A,B,c){ return "¿Cuál es el impacto de " + A + " en " + B + " " + c + "?"; }, o: function(A,B,c){ return "Evaluar el impacto de " + A + " en " + B + " " + c + "."; }},
+      {lab: "¿Cómo influye… en…?", q: function(A,B,c,pl){ return "¿Cómo " + v(pl,"influye","influyen") + " " + A + " en " + B + " " + c + "?"; }, o: function(A,B,c){ return "Analizar la influencia de " + A + " en " + B + " " + c + "."; }}
+    ],
+    hyp: {
+      correlacional: function(A,B,c,pl,k){ return [A + " " + v(pl,"se relaciona","se relacionan") + " de manera " + k + " con " + B + " " + c + ".", A + " no " + v(pl,"se relaciona","se relacionan") + " de manera " + k + " con " + B + " " + c + "."]; },
+      explicativo: function(A,B,c,pl,k){ return [A + " " + v(pl,"influye","influyen") + " " + adv(k) + " en " + B + " " + c + ".", A + " no " + v(pl,"influye","influyen") + " " + adv(k) + " en " + B + " " + c + "."]; }
+    }
+  },
+  sampieri: {
+    hi: "Hi", h0: "H0",
+    h0nota: "Hernández Sampieri et al. (2019) no desarrollan la hipótesis nula en este libro; la app la presenta como la negación de Hi.",
+    correlacional: [
+      {lab: "¿Cómo se relaciona… con…?", q: function(A,B,c,pl){ return "¿Cómo " + v(pl,"se relaciona","se relacionan") + " " + A + " con " + B + " " + c + "?"; }, o: function(A,B,c,pl){ return "Determinar cómo " + v(pl,"se relaciona","se relacionan") + " " + A + " con " + B + " " + c + "."; }},
+      {lab: "¿Qué relación existe entre… y…?", q: function(A,B,c){ return "¿Qué relación existe entre " + A + conj(B) + B + " " + c + "?"; }, o: function(A,B,c){ return "Determinar qué relación existe entre " + A + conj(B) + B + " " + c + "."; }}
+    ],
+    explicativo: [
+      {lab: "¿Cómo afecta… a…?", q: function(A,B,c,pl){ return "¿Cómo " + v(pl,"afecta","afectan") + " " + A + " a " + B + " " + c + "?"; }, o: function(A,B,c,pl){ return "Determinar cómo " + v(pl,"afecta","afectan") + " " + A + " a " + B + " " + c + "."; }},
+      {lab: "¿Cómo influye… en…?", q: function(A,B,c,pl){ return "¿Cómo " + v(pl,"influye","influyen") + " " + A + " en " + B + " " + c + "?"; }, o: function(A,B,c,pl){ return "Determinar cómo " + v(pl,"influye","influyen") + " " + A + " en " + B + " " + c + "."; }}
+    ],
+    hyp: {
+      correlacional: function(A,B,c,pl,k){ return [A + " " + v(pl,"se relaciona","se relacionan") + " de manera " + k + " con " + B + " " + c + ".", A + " no " + v(pl,"se relaciona","se relacionan") + " de manera " + k + " con " + B + " " + c + "."]; },
+      explicativo: function(A,B,c,pl,k){ return [A + " " + v(pl,"influye","influyen") + " " + adv(k) + " en " + B + " " + c + ".", A + " no " + v(pl,"influye","influyen") + " " + adv(k) + " en " + B + " " + c + "."]; }
+    }
+  }
+};
+function forms(){ return T[S.autor][S.nivel]; }
+function form(){ var f = forms(); return f[Math.min(S.forma || 0, f.length - 1)]; }
+
+/* =========================================================
+   GENERADORES
+   ========================================================= */
+function namedXs(){ return S.xs.filter(function(x){ return (x.nombre || "").trim(); }); }
+function hasY(){ return (S.y.nombre || "").trim().length > 0; }
+function dimsOf(o){ return (o.dims || []).filter(function(d){ return (d.n || "").trim(); }); }
+function A_general(){
+  var xs = namedXs().map(withArt);
+  if (S.nivel === "correlacional" && xs.length > 1) return {A: xs.join(", "), pl: true, multiCorr: true};
+  return {A: yJoin(xs), pl: xs.length > 1};
+}
+function generalPair(){
+  var g = A_general();
+  var B = withArt(S.y);
+  if (g.multiCorr) return {A: g.A, B: B, pl: true};
+  return {A: g.A || "[variable 1]", B: B, pl: g.pl};
+}
+function specificPairs(){
+  var out = [];
+  var yDims = dimsOf(S.y);
+  namedXs().forEach(function(x){
+    var dx = dimsOf(x);
+    var As = dx.length ? dx.map(withArt) : [withArt(x)];
+    As.forEach(function(a){
+      if (S.modoEsp === "dimDim" && yDims.length){
+        yDims.forEach(function(e){ out.push({A: a, B: withArt(e)}); });
+      } else {
+        out.push({A: a, B: withArt(S.y)});
+      }
+    });
+  });
+  return out;
+}
+function genPOH(){
+  var f = form(), c = ctx(), t = T[S.autor];
+  var g = generalPair();
+  var hypF = t.hyp[S.nivel];
+  var gh = hypF(g.A, g.B, c, g.pl, S.calif);
+  var res = {
+    pg: fix(f.q(g.A, g.B, c, g.pl)),
+    og: fix(upperFirst(f.o(g.A, g.B, c, g.pl))),
+    hg: fix(upperFirst(gh[0])), hg0: fix(upperFirst(gh[1])),
+    esp: []
+  };
+  specificPairs().forEach(function(p){
+    var h = hypF(p.A, p.B, c, false, S.calif);
+    res.esp.push({
+      p: fix(f.q(p.A, p.B, c, false)),
+      o: fix(upperFirst(f.o(p.A, p.B, c, false))),
+      h: fix(upperFirst(h[0])), h0: fix(upperFirst(h[1]))
+    });
+  });
+  return res;
+}
+
+/* ---------- Titulador ---------- */
+function tName(o){ return lowerFirst(o.nombre || ""); }
+function ctxTitle(){
+  var s = (S.sujetos || "").trim();
+  var base = s ? "de " + s + " de " + orgTxt() : "en " + orgTxt();
+  return base + lugarTxt() + ", " + periodoTxt();
+}
+function genTitles(){
+  var xs = namedXs(), y = S.y, c = ctxTitle(), out = [];
+  if (!xs.length || !hasY()) return out;
+  var X = yJoin(xs.map(tName)), Y = tName(y), multi = xs.length > 1;
+  var Xa = yJoin(xs.map(withArt)), Ya = withArt(y);
+  var all = xs.map(tName).concat([Y]);
+  // Al inicio del título las variables van sin artículo; después de “en”, “entre”, “de” o “con”, con artículo.
+  var allA = xs.map(withArt).concat([Ya]);
+  if (S.nivel === "correlacional"){
+    if (multi){
+      out.push(yJoin(all) + " " + c);
+      out.push("Relación entre " + yJoin(allA) + " " + c);
+      out.push(xs.map(tName).join(", ") + " y su relación con " + Ya + " " + c);
+    } else {
+      out.push(X + conj(Y) + Y + " " + c);
+      out.push(X + " y su relación con " + Ya + " " + c);
+      out.push("Relación entre " + Xa + conj(Ya) + Ya + " " + c);
+    }
+    if (S.autor === "villanueva") out.push(upperFirst(yJoin(allA)) + " " + c);
+  } else {
+    if (multi){
+      out.push("Influencia de " + Xa + " en " + Ya + " " + c);
+      out.push(X + " como factores que influyen en " + Ya + " " + c);
+      out.push("Efectos de " + Xa + " en " + Ya + " " + c);
+    } else {
+      out.push(X + " y su influencia en " + Ya + " " + c);
+      out.push("Influencia de " + Xa + " en " + Ya + " " + c);
+      out.push(X + " y su incidencia en " + Ya + " " + c);
+      out.push("Efectos de " + Xa + " en " + Ya + " " + c);
+      if (S.autor === "villanueva") out.push(upperFirst(Xa) + " y su influencia en " + Ya + " " + c);
+    }
+  }
+  return out.map(function(t){ return fix(upperFirst(t)); });
+}
+function titleChecks(t){
+  var words = t.split(/\s+/).filter(Boolean).length;
+  var chips = [];
+  chips.push(words <= 20 ? ["ok", words + " palabras"] : ["w", words + " palabras (Vara sugiere máx. 20)"]);
+  var sig = t.match(/\b[A-ZÁÉÍÓÚÑ]{2,}\b/g);
+  if (sig) chips.push(["w", "Contiene siglas: " + sig.join(", ")]);
+  chips.push((S.org || "").trim() ? ["ok", "Contexto"] : ["b", "Falta organización"]);
+  chips.push((S.periodo || "").trim() ? ["ok", "Tiempo"] : ["b", "Falta año o periodo"]);
+  chips.push(["ok", "Variables"]);
+  return chips;
+}
+
+/* =========================================================
+   RESPALDO (bloque “¿De dónde sale esto?”)
+   ========================================================= */
+function respBlock(sections, extra){
+  var a = S.autor, src = SRC[a], items = [];
+  sections.forEach(function(sec){
+    var list = src.r[sec];
+    var who = src, fallback = false;
+    if (!list){ who = SRC.villanueva; list = who.r[sec]; fallback = true; }
+    if (!list) return;
+    list.forEach(function(it){
+      items.push("<li><b>" + esc(who.cita) + " (" + who.anio + ", " + esc(it[0]) + ")</b>" + (fallback ? " <span class='muted'>[apartado tomado de Villanueva, libro UNASAM]</span>" : "") + ": " + esc(it[1]) + "</li>");
+    });
+  });
+  var refs = [src]; sections.forEach(function(sec){ if (!src.r[sec] && refs.indexOf(SRC.villanueva) < 0) refs.push(SRC.villanueva); });
+  var refHtml = refs.map(function(r){
+    return "<div class='ref'>" + r.ref + "<div class='links'>" + r.links.map(function(l){ return "<a href='" + l.u + "' target='_blank' rel='noopener'>" + esc(l.t) + " ↗</a>"; }).join("") + "</div></div>";
+  }).join("");
+  return "<details class='resp'><summary>Respaldo: ¿de dónde sale esto?</summary><div class='in'><ul>" + items.join("") + (extra || "") + "</ul>" + refHtml + "</div></details>";
+}
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+function lvlLabel(){ return S.nivel === "correlacional" ? "Correlacional" : "Explicativo"; }
+function validation(){
+  var w = [];
+  if (!namedXs().length) w.push("Escribe el nombre de la " + (S.nivel === "explicativo" ? "variable independiente (X)" : "variable 1") + ".");
+  if (!hasY()) w.push("Escribe el nombre de la " + (S.nivel === "explicativo" ? "variable dependiente (Y)" : "variable 2") + ".");
+  if (!(S.org || "").trim()) w.push("Escribe la organización o el sector en la sección 4.");
+  if (!(S.periodo || "").trim()) w.push("Escribe el año o el periodo en la sección 4.");
+  return w;
+}
+function warnHtml(){
+  var w = validation();
+  if (!w.length) return "";
+  return "<div class='note warn'><b>Completa en la pestaña Datos:</b><ul style='margin:6px 0 0;padding-left:18px'>" + w.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></div>";
+}
+function renderAuthors(){
+  document.getElementById("authors").innerHTML = AUTH_ORDER.map(function(k){
+    var s = SRC[k];
+    return "<label><input type='radio' name='autor' value='" + k + "'" + (S.autor === k ? " checked" : "") + "><b>" + esc(s.nombre) + "</b><span>" + esc(s.desc) + "</span><span class='tag'>" + esc(s.tag) + "</span></label>";
+  }).join("");
+}
+var ORD = ["Primera","Segunda","Tercera","Cuarta","Quinta","Sexta","Séptima","Octava","Novena","Décima"];
+var OPEN_ADV = {};
+function artSelect(path, val, name){
+  var g = guessArt(name);
+  var opts = [["auto", "auto (" + g + ")"], ["el","el"], ["la","la"], ["los","los"], ["las","las"], ["-","sin artículo"]];
+  return "<select data-p='" + path + "' title='Artículo'>" + opts.map(function(o){ return "<option value='" + o[0] + "'" + ((val || "auto") === o[0] ? " selected" : "") + ">" + o[1] + "</option>"; }).join("") + "</select>";
+}
+function varCardHtml(o, path, num, roleTxt, isY, removable){
+  var nm = "variable " + num;
+  var dims = (o.dims || []).map(function(d, i){
+    return "<div class='drow'><input type='text' data-p='" + path + ".dims." + i + ".n' value='" + esc(d.n) + "' placeholder='Dimensión " + (i + 1) + "'>" +
+      "<button class='xbtn' title='Quitar dimensión' data-deldim='" + path + "|" + i + "'>✕</button></div>";
+  }).join("");
+  var adv = "<details class='adv' data-adv='" + path + "'" + (OPEN_ADV[path] ? " open" : "") + "><summary>Opciones avanzadas: artículos, indicadores y definiciones</summary>" +
+    "<div class='advrow'><span class='dn'>Artículo de la variable</span>" + artSelect(path + ".art", o.art, o.nombre) + "</div>" +
+    (o.dims || []).map(function(d, i){
+      return "<div class='advrow'><span class='dn' data-dn='" + path + ".dims." + i + ".n'>" + esc(d.n || ("Dimensión " + (i + 1))) + "</span>" + artSelect(path + ".dims." + i + ".art", d.art, d.n) +
+        "<input class='ind' type='text' data-p='" + path + ".dims." + i + ".ind' value='" + esc(d.ind) + "' placeholder='Indicadores: indicador 1; indicador 2'></div>";
+    }).join("") +
+    "<label class='f' style='margin-top:12px'>Definición conceptual <small>(con cita del autor)</small></label><textarea data-p='" + path + ".defc' placeholder='Según Autor (año), la variable es…'>" + esc(o.defc) + "</textarea>" +
+    "<label class='f'>Definición operacional</label><textarea data-p='" + path + ".defo' placeholder='Se medirá a través de sus dimensiones mediante un cuestionario.'>" + esc(o.defo) + "</textarea>" +
+    "</details>";
+  return "<div class='vcard" + (isY ? " yv" : "") + "'>" +
+    "<div class='vcard-h'><h3>" + ORD[num - 1 < ORD.length ? num - 1 : ORD.length - 1] + " variable</h3><span class='row' style='gap:8px'>" + (roleTxt ? "<span class='role'>" + esc(roleTxt) + "</span>" : "") +
+      (removable ? "<button class='btn ghost sm' data-delx='" + path + "'>Quitar</button>" : "") + "</span></div>" +
+    "<label class='f'>Nombre de la " + nm + " *</label>" +
+    "<input type='text' data-p='" + path + ".nombre' value='" + esc(o.nombre) + "' placeholder='" + (isY ? "decisión de compra" : "marketing digital") + "'>" +
+    "<label class='f' style='margin-top:16px'>Dimensiones de la " + nm + " *</label>" + dims +
+    "<button class='addd' data-adddim='" + path + "'>+ Agregar dimensión</button>" + adv + "</div>";
+}
+function renderVars(){
+  var expl = S.nivel === "explicativo";
+  document.getElementById("varHelp").innerHTML = expl
+    ? "En el nivel explicativo, las variables independientes (X) son las causas y la variable dependiente (Y) es el efecto. Para una investigación multivariada, agrega más variables independientes."
+    : "En el nivel correlacional no hay causa ni efecto: la app relaciona la(s) primera(s) variable(s) con la última. Para una investigación multivariada, agrega más variables.";
+  var n = S.xs.length, html = "";
+  S.xs.forEach(function(x, i){
+    var role = expl ? (n > 1 ? "Independiente X" + (i + 1) : "Independiente (X)") : "";
+    html += varCardHtml(x, "xs." + i, i + 1, role, false, n > 1);
+  });
+  html += varCardHtml(S.y, "y", n + 1, expl ? "Dependiente (Y)" : (n > 1 ? "Se relaciona con las anteriores" : ""), true, false);
+  document.getElementById("vgrid").innerHTML = html;
+}
+function renderForms(){
+  var sel = document.getElementById("forma");
+  sel.innerHTML = forms().map(function(f, i){ return "<option value='" + i + "'>" + esc(f.lab) + "</option>"; }).join("");
+  if ((S.forma || 0) >= forms().length) S.forma = 0;
+  sel.value = String(S.forma || 0);
+}
+function fillInputs(){
+  ["sujetos","org","lugar","periodo","tipo","poblacion","muestra","tecnica","instrumento","escala","modoEsp","calif"].forEach(function(id){
+    var el = document.getElementById(id); if (el) el.value = S[id] || "";
+  });
+  document.getElementById("h0").checked = !!S.h0;
+  document.querySelectorAll("input[name=nivel]").forEach(function(r){ r.checked = r.value === S.nivel; });
+}
+function renderTitles(){
+  document.getElementById("tAutor").textContent = SRC[S.autor].nombre;
+  document.getElementById("tNivel").textContent = lvlLabel() + " · " + (namedXs().length > 1 ? "multivariada" : "bivariada");
+  document.getElementById("tWarn").innerHTML = warnHtml();
+  var ts = genTitles();
+  document.getElementById("titles").innerHTML = ts.length ? ts.map(function(t){
+    var chosen = S.titulo === t;
+    return "<div class='t" + (chosen ? " chosen" : "") + "'><div class='tt'>" + esc(t) + "</div><div class='chips'>" +
+      titleChecks(t).map(function(c){ return "<span class='chip " + (c[0] === "ok" ? "" : c[0]) + "'>" + esc(c[1]) + "</span>"; }).join("") +
+      "</div><div class='row' style='margin-top:10px'><button class='btn sm" + (chosen ? " gold" : "") + "' data-pick='" + esc(t) + "'>" + (chosen ? "✓ Título elegido" : "Usar este título") + "</button><button class='btn ghost sm' data-copytext='" + esc(t) + "'>Copiar</button></div></div>";
+  }).join("") : "<p class='muted'>Completa al menos dos variables en la pestaña Datos.</p>";
+  document.getElementById("tResp").innerHTML = respBlock(["titulo"], S.autor !== "villanueva" ? "<li><b>Villanueva (2020, p. 11)</b>, libro de la UNASAM: variables + conector “y” + sujetos o contexto + tiempo. <span class='muted'>(Criterio de la escuela, aplicado a todos los títulos.)</span></li>" : "");
+}
+function itemHtml(code, txt, cls){ return "<div class='item " + (cls || "") + "'><span class='code'>" + esc(code) + "</span><span class='txt'>" + esc(txt) + "</span></div>"; }
+function renderPOH(){
+  document.getElementById("pAutor").textContent = SRC[S.autor].nombre;
+  document.getElementById("pNivel").textContent = lvlLabel() + " · " + (namedXs().length > 1 ? "multivariada" : "bivariada");
+  var w = warnHtml(), f = form(), t = T[S.autor];
+  var notes = "";
+  if (f.nota) notes += "<div class='note'>" + esc(f.nota) + "</div>";
+  if (S.h0 && t.h0nota) notes += "<div class='note blue'>" + esc(t.h0nota) + "</div>";
+  document.getElementById("pWarn").innerHTML = w + notes;
+  if (!namedXs().length || !hasY()){ document.getElementById("pOut").innerHTML = ""; document.getElementById("pResp").innerHTML = ""; return; }
+  var r = genPOH(), h = "";
+  h += "<h3>Problemas</h3>" + itemHtml("PG", r.pg);
+  r.esp.forEach(function(e, i){ h += itemHtml("PE" + (i + 1), e.p); });
+  h += "<h3>Objetivos</h3>" + itemHtml("OG", r.og);
+  r.esp.forEach(function(e, i){ h += itemHtml("OE" + (i + 1), e.o); });
+  h += "<h3>Hipótesis</h3>" + itemHtml("HG · " + t.hi, r.hg);
+  if (S.h0) h += itemHtml("HG · " + t.h0, r.hg0, "h0");
+  r.esp.forEach(function(e, i){
+    h += itemHtml("HE" + (i + 1) + " · " + t.hi, e.h);
+    if (S.h0) h += itemHtml("HE" + (i + 1) + " · " + t.h0, e.h0, "h0");
+  });
+  document.getElementById("pOut").innerHTML = h;
+  var extra = "<li><b>Coherencia:</b> " + r.esp.length + " pregunta(s) específica(s) = " + r.esp.length + " objetivo(s) = " + r.esp.length + " hipótesis específica(s), como piden los cuatro autores.</li>";
+  if (S.modoEsp === "dimY" && S.autor !== "villanueva") extra += "<li><b>Villanueva (2020, p. 45)</b>: las hipótesis específicas pueden ser tantas como los indicadores (dimensiones) de la variable independiente.</li>";
+  document.getElementById("pResp").innerHTML = respBlock(["preguntas","objetivos","hipotesis"], extra);
+}
+function indList(d){ return (d.ind || "").split(";").map(function(s){ return s.trim(); }).filter(Boolean); }
+function renderOper(){
+  var vars = namedXs().map(function(x, i){ return {o: x, lab: S.nivel === "explicativo" ? (namedXs().length > 1 ? "X" + (i + 1) : "X") : "V" + (i + 1)}; });
+  if (hasY()) vars.push({o: S.y, lab: S.nivel === "explicativo" ? "Y" : "V" + (vars.length + 1)});
+  if (!vars.length){ document.getElementById("oOut").innerHTML = "<p class='muted'>Completa las variables en la pestaña Datos.</p>"; document.getElementById("oResp").innerHTML = ""; return; }
+  var h = "<table class='tb'><thead><tr><th>Variable</th><th>Definición conceptual</th><th>Definición operacional</th><th>Dimensiones</th><th>Indicadores</th><th>Escala de medición</th></tr></thead><tbody>";
+  vars.forEach(function(vv){
+    var o = vv.o, ds = dimsOf(o);
+    if (!ds.length) ds = [{n: "[agregar dimensión]", ind: ""}];
+    ds.forEach(function(d, i){
+      h += "<tr>";
+      if (i === 0){
+        h += "<td rowspan='" + ds.length + "'><b>" + esc(vv.lab) + ": " + esc(upperFirst(o.nombre)) + "</b></td>";
+        h += "<td rowspan='" + ds.length + "'>" + (o.defc ? esc(o.defc) : "<span class='muted'>[Redacta la definición citando al autor que sustenta la variable]</span>") + "</td>";
+        h += "<td rowspan='" + ds.length + "'>" + (o.defo ? esc(o.defo) : "<span class='muted'>[Cómo se medirá: dimensiones e instrumento]</span>") + "</td>";
+      }
+      var inds = indList(d);
+      h += "<td>D" + (i + 1) + ". " + esc(upperFirst(d.n)) + "</td><td>" + (inds.length ? "<ul>" + inds.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "<span class='muted'>[indicadores]</span>") + "</td>";
+      if (i === 0) h += "<td rowspan='" + ds.length + "'>" + esc(S.escala || "Ordinal (tipo Likert)") + "</td>";
+      h += "</tr>";
+    });
+  });
+  h += "</tbody></table>";
+  document.getElementById("oOut").innerHTML = h;
+  document.getElementById("oResp").innerHTML = respBlock(["operacionalizacion"]);
+}
+function renderMatriz(){
+  if (!namedXs().length || !hasY()){ document.getElementById("mOut").innerHTML = warnHtml() || "<p class='muted'>Completa los datos.</p>"; document.getElementById("mResp").innerHTML = ""; return; }
+  var r = genPOH(), t = T[S.autor];
+  var titulo = S.titulo || genTitles()[0] || "";
+  var li = function(arr){ return "<ol>" + arr.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ol>"; };
+  var hyps = "<b>" + esc(t.hi) + ":</b> " + esc(r.hg) + (S.h0 ? "<br><b>" + esc(t.h0) + ":</b> " + esc(r.hg0) : "");
+  var varsHtml = "";
+  namedXs().forEach(function(x, i){
+    var lab = S.nivel === "explicativo" ? "Variable independiente" + (namedXs().length > 1 ? " X" + (i + 1) : " (X)") : "Variable " + (i + 1);
+    varsHtml += "<p style='margin:0 0 4px'><b>" + esc(lab) + ":</b> " + esc(upperFirst(x.nombre)) + "</p>" + (dimsOf(x).length ? "<ul>" + dimsOf(x).map(function(d){ return "<li>" + esc(upperFirst(d.n)) + "</li>"; }).join("") + "</ul>" : "");
+  });
+  var ylab = S.nivel === "explicativo" ? "Variable dependiente (Y)" : "Variable " + (namedXs().length + 1);
+  varsHtml += "<p style='margin:8px 0 4px'><b>" + esc(ylab) + ":</b> " + esc(upperFirst(S.y.nombre)) + "</p>" + (dimsOf(S.y).length ? "<ul>" + dimsOf(S.y).map(function(d){ return "<li>" + esc(upperFirst(d.n)) + "</li>"; }).join("") + "</ul>" : "");
+  var diseno = S.nivel === "correlacional" ? "No experimental, transversal (transeccional), correlacional" : "No experimental, transversal (transeccional), correlacional-causal";
+  var met = "<p style='margin:0 0 4px'><b>Tipo:</b> " + esc(S.tipo) + "</p><p style='margin:0 0 4px'><b>Enfoque:</b> Cuantitativo</p><p style='margin:0 0 4px'><b>Nivel:</b> " + lvlLabel() + "</p><p style='margin:0 0 4px'><b>Diseño:</b> " + diseno + "</p>" +
+    "<p style='margin:0 0 4px'><b>Población:</b> " + esc(S.poblacion || "[completar]") + "</p><p style='margin:0 0 4px'><b>Muestra:</b> " + esc(S.muestra || "[completar]") + "</p>" +
+    "<p style='margin:0 0 4px'><b>Técnica:</b> " + esc(S.tecnica) + "</p><p style='margin:0 0 4px'><b>Instrumento:</b> " + esc(S.instrumento) + "</p>";
+  var heHtml = "<ol>" + r.esp.map(function(e){ return "<li>" + esc(e.h) + (S.h0 ? "<br><span class='muted'>" + esc(t.h0) + ": " + esc(e.h0) + "</span>" : "") + "</li>"; }).join("") + "</ol>";
+  var h = "<table class='tb'><thead><tr><th colspan='5' style='text-align:center'>MATRIZ DE CONSISTENCIA<br><span style='font-weight:600'>Título: " + esc(titulo) + "</span></th></tr>" +
+    "<tr><th>Problemas</th><th>Objetivos</th><th>Hipótesis</th><th>Variables y dimensiones</th><th>Metodología</th></tr></thead><tbody><tr>" +
+    "<td><b>Problema general:</b><br>" + esc(r.pg) + "<br><br><b>Problemas específicos:</b>" + li(r.esp.map(function(e){ return e.p; })) + "</td>" +
+    "<td><b>Objetivo general:</b><br>" + esc(r.og) + "<br><br><b>Objetivos específicos:</b>" + li(r.esp.map(function(e){ return e.o; })) + "</td>" +
+    "<td><b>Hipótesis general:</b><br>" + hyps + "<br><br><b>Hipótesis específicas:</b>" + heHtml + "</td>" +
+    "<td>" + varsHtml + "</td><td>" + met + "</td></tr></tbody></table>";
+  document.getElementById("mOut").innerHTML = (S.titulo ? "" : "<div class='note'>Aún no eliges un título: se usa la primera propuesta del Titulador.</div>") + h;
+  document.getElementById("mResp").innerHTML = respBlock(["matriz"]);
+}
+function renderRefs(){
+  document.getElementById("refList").innerHTML = AUTH_ORDER.map(function(k){
+    var s = SRC[k];
+    return "<li>" + s.ref + "<div class='links'>" + s.links.map(function(l){ return "<a href='" + l.u + "' target='_blank' rel='noopener'>" + esc(l.t) + " ↗</a>"; }).join("") + "</div></li>";
+  }).join("");
+}
+function renderOutputs(){ renderTitles(); renderPOH(); renderOper(); renderMatriz(); }
+function renderAll(){ renderAuthors(); renderVars(); renderForms(); fillInputs(); renderOutputs(); }
+
+/* =========================================================
+   EVENTOS
+   ========================================================= */
+function setPath(path, val){
+  var parts = path.split("."), o = S;
+  for (var i = 0; i < parts.length - 1; i++) o = o[parts[i]];
+  o[parts[parts.length - 1]] = val;
+}
+function getPath(path){ return path.split(".").reduce(function(o, k){ return o[k]; }, S); }
+document.addEventListener("input", function(e){
+  var p = e.target.getAttribute("data-p");
+  if (p){
+    setPath(p, e.target.value);
+    if (/(\.nombre|\.n)$/.test(p)){
+      var artP = p.replace(/(nombre|n)$/, "art");
+      var sel = document.querySelector("select[data-p='" + artP + "']");
+      if (sel && sel.options[0]) sel.options[0].text = "auto (" + guessArt(e.target.value) + ")";
+      var dn = document.querySelector("[data-dn='" + p + "']");
+      if (dn) dn.textContent = e.target.value || "Dimensión";
+    }
+    save(); renderOutputs(); return;
+  }
+  var id = e.target.id;
+  if (["sujetos","org","lugar","periodo","tipo","poblacion","muestra","tecnica","instrumento","escala"].indexOf(id) >= 0){ S[id] = e.target.value; S.titulo = ""; save(); renderOutputs(); }
+});
+document.addEventListener("change", function(e){
+  var t = e.target;
+  if (t.id === "exArea"){ renderExSelects(); return; }
+  if (t.id === "exTema") return;
+  if (t.name === "autor"){ S.autor = t.value; S.forma = 0; S.titulo = ""; save(); renderForms(); renderOutputs(); return; }
+  if (t.name === "nivel"){ S.nivel = t.value; S.forma = 0; S.titulo = ""; save(); renderVars(); renderForms(); renderOutputs(); return; }
+  if (t.id === "forma"){ S.forma = parseInt(t.value, 10) || 0; save(); renderOutputs(); return; }
+  if (t.id === "modoEsp" || t.id === "calif"){ S[t.id] = t.value; save(); renderOutputs(); return; }
+  if (t.id === "h0"){ S.h0 = t.checked; save(); renderOutputs(); return; }
+  if (t.tagName === "SELECT" && t.getAttribute("data-p")){ setPath(t.getAttribute("data-p"), t.value); save(); renderOutputs(); }
+});
+document.addEventListener("click", function(e){
+  var b = e.target.closest("button"); if (!b) return;
+  if (b.id === "addX"){ S.xs.push(blankVar()); save(); renderVars(); renderOutputs(); return; }
+  if (b.hasAttribute("data-delx")){ var i = +b.getAttribute("data-delx").split(".")[1]; S.xs.splice(i, 1); if (!S.xs.length) S.xs.push(blankVar()); save(); renderVars(); renderOutputs(); return; }
+  if (b.hasAttribute("data-adddim")){ getPath(b.getAttribute("data-adddim")).dims.push({n: "", art: "auto", ind: ""}); save(); renderVars(); return; }
+  if (b.hasAttribute("data-deldim")){ var pr = b.getAttribute("data-deldim").split("|"); var o = getPath(pr[0]); o.dims.splice(+pr[1], 1); save(); renderVars(); renderOutputs(); return; }
+  if (b.hasAttribute("data-pick")){ S.titulo = b.getAttribute("data-pick"); save(); renderTitles(); renderMatriz(); toast("Título elegido"); return; }
+  if (b.hasAttribute("data-copytext")){ copyText(b.getAttribute("data-copytext")); return; }
+  if (b.hasAttribute("data-copy")){ copyEl(document.getElementById(b.getAttribute("data-copy"))); return; }
+  if (b.id === "exApply"){ applyExample(); return; }
+  if (b.id === "limpiar"){ S = JSON.parse(JSON.stringify(DEFAULT)); save(); renderAll(); toast("Datos borrados"); return; }
+});
+
+/* ---------- Copiar ---------- */
+function toast(m){ var t = document.getElementById("toast"); t.textContent = m; t.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(function(){ t.classList.remove("on"); }, 1600); }
+function fallbackCopy(el){
+  try {
+    var r = document.createRange(); r.selectNodeContents(el);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    var ok = document.execCommand("copy"); s.removeAllRanges();
+    toast(ok ? "Copiado. Pégalo en Word" : "Selecciona el texto y copia con Ctrl+C");
+  } catch(e){ toast("Selecciona el texto y copia con Ctrl+C"); }
+}
+function copyEl(el){
+  if (!el) return;
+  var html = "<div style='font-family:Arial;font-size:11pt'>" + el.innerHTML + "</div>", text = el.innerText;
+  try {
+    if (navigator.clipboard && window.ClipboardItem){
+      navigator.clipboard.write([new ClipboardItem({"text/html": new Blob([html], {type: "text/html"}), "text/plain": new Blob([text], {type: "text/plain"})})])
+        .then(function(){ toast("Copiado. Pégalo en Word"); }, function(){ fallbackCopy(el); });
+      return;
+    }
+  } catch(e){}
+  fallbackCopy(el);
+}
+function copyText(t){
+  try {
+    if (navigator.clipboard){ navigator.clipboard.writeText(t).then(function(){ toast("Título copiado"); }, function(){ toast("No se pudo copiar"); }); return; }
+  } catch(e){}
+  toast("No se pudo copiar");
+}
+
+/* ---------- Ejemplos por área (organizaciones genéricas) ---------- */
+function D(list){ return list.map(function(n){ return {n: n, art: "auto", ind: ""}; }); }
+function V(nombre, dims){ return {nombre: nombre, art: "auto", defc: "", defo: "", dims: D(dims)}; }
+var EXAMPLES = {
+  "Recursos Humanos": [
+    {tema: "gestión del talento humano y desempeño laboral", x: V("gestión del talento humano", ["reclutamiento y selección","capacitación","evaluación del desempeño","compensaciones"]), y: V("desempeño laboral", ["productividad","calidad del trabajo","trabajo en equipo"]), sujetos: "los colaboradores administrativos", org: "una municipalidad distrital de Áncash"},
+    {tema: "clima organizacional y satisfacción laboral", x: V("clima organizacional", ["comunicación","liderazgo","motivación","estructura organizacional"]), y: V("satisfacción laboral", ["condiciones laborales","relaciones interpersonales","desarrollo profesional"]), sujetos: "los trabajadores", org: "una cooperativa de ahorro y crédito de Huaraz"},
+    {tema: "liderazgo y compromiso organizacional", x: V("liderazgo", ["influencia idealizada","motivación inspiracional","estimulación intelectual","consideración individualizada"]), y: V("compromiso organizacional", ["compromiso afectivo","compromiso de continuidad","compromiso normativo"]), sujetos: "los docentes", org: "una institución educativa privada de Huaraz"}
+  ],
+  "Marketing": [
+    {tema: "marketing digital y decisión de compra", x: V("marketing digital", ["marketing de contenidos","publicidad digital","interacción en redes sociales"]), y: V("decisión de compra", ["búsqueda de información","evaluación de alternativas","elección de compra"]), sujetos: "los clientes", org: "una tienda de ropa de Huaraz"},
+    {tema: "calidad de servicio y satisfacción del cliente", x: V("calidad de servicio", ["elementos tangibles","fiabilidad","capacidad de respuesta","seguridad","empatía"]), y: V("satisfacción del cliente", ["rendimiento percibido","expectativas","nivel de satisfacción"]), sujetos: "", pob: "comensales del restaurante", org: "un restaurante turístico de Huaraz"},
+    {tema: "marketing mix y posicionamiento", x: V("marketing mix", ["producto","precio","plaza","promoción"]), y: V("posicionamiento", ["atributos del producto","beneficios percibidos","diferenciación"]), sujetos: "", pob: "consumidores de la marca", org: "una empresa de productos lácteos de Áncash"}
+  ],
+  "Gestión pública": [
+    {tema: "control interno y gestión administrativa", x: V("control interno", ["ambiente de control","evaluación de riesgos","actividades de control","información y comunicación","supervisión"]), y: V("gestión administrativa", ["planificación","organización","dirección","control"]), sujetos: "los trabajadores administrativos", org: "una municipalidad provincial de Áncash"},
+    {tema: "gestión por procesos y calidad del servicio público", x: V("gestión por procesos", ["identificación de procesos","mejora continua","seguimiento y medición"]), y: V("calidad del servicio público", ["accesibilidad","oportunidad","trato al usuario"]), sujetos: "", pob: "usuarios atendidos en la entidad", org: "una entidad pública de Huaraz"}
+  ],
+  "Finanzas": [
+    {tema: "gestión financiera y rentabilidad", x: V("gestión financiera", ["planificación financiera","gestión del capital de trabajo","control de costos"]), y: V("rentabilidad", ["rentabilidad económica","rentabilidad financiera","rentabilidad sobre ventas"]), sujetos: "", org: "las micro y pequeñas empresas comerciales de Huaraz"},
+    {tema: "control de inventarios y rentabilidad", x: V("control de inventarios", ["registro de existencias","almacenamiento","rotación de inventarios"]), y: V("rentabilidad", ["rentabilidad económica","rentabilidad financiera","margen de utilidad"]), sujetos: "", org: "las ferreterías del distrito de Independencia, Huaraz"}
+  ],
+  "Gestión empresarial y estrategia": [
+    {tema: "planeamiento estratégico y competitividad", x: V("planeamiento estratégico", ["análisis del entorno","formulación de estrategias","implementación","evaluación"]), y: V("competitividad", ["costos","diferenciación","innovación"]), sujetos: "", org: "las agencias de viajes de Huaraz"},
+    {tema: "innovación y crecimiento empresarial", x: V("innovación", ["innovación de producto","innovación de proceso","innovación comercial"]), y: V("crecimiento empresarial", ["crecimiento en ventas","participación de mercado","expansión"]), sujetos: "", org: "las mypes del sector textil de Huaraz"}
+  ],
+  "Logística y operaciones": [
+    {tema: "gestión logística y calidad del servicio", x: V("gestión logística", ["compras","almacenamiento","distribución"]), y: V("calidad del servicio", ["puntualidad","exactitud del pedido","atención al cliente"]), sujetos: "", pob: "clientes de la distribuidora", org: "una distribuidora de abarrotes de Huaraz"}
+  ]
+};
+function renderExSelects(){
+  var areaSel = document.getElementById("exArea"), temaSel = document.getElementById("exTema");
+  var areas = Object.keys(EXAMPLES);
+  if (!areaSel.options.length) areaSel.innerHTML = areas.map(function(a){ return "<option>" + esc(a) + "</option>"; }).join("");
+  var list = EXAMPLES[areaSel.value] || EXAMPLES[areas[0]];
+  temaSel.innerHTML = list.map(function(e, i){ return "<option value='" + i + "'>" + esc(e.tema) + "</option>"; }).join("");
+}
+function applyExample(){
+  var area = document.getElementById("exArea").value, i = +document.getElementById("exTema").value || 0;
+  var e = EXAMPLES[area][i];
+  var keep = {autor: S.autor};
+  S = JSON.parse(JSON.stringify(DEFAULT));
+  S.autor = keep.autor;
+  S.nivel = "correlacional";
+  S.xs = [JSON.parse(JSON.stringify(e.x))];
+  S.y = JSON.parse(JSON.stringify(e.y));
+  S.sujetos = e.sujetos; S.org = e.org;
+  S.lugar = "";
+  S.periodo = "2026";
+  if (e.pob) S.poblacion = "[número] " + e.pob;
+  save(); renderAll();
+  document.getElementById("exArea").value = area; renderExSelects(); document.getElementById("exTema").value = String(i);
+  toast("Ejemplo aplicado: " + e.tema);
+}
+
+/* ---------- Pestañas por hash ---------- */
+var VIEWS = ["datos","titulador","poh","operacionalizacion","matriz","creditos"];
+function route(){
+  var h = (location.hash || "").replace("#", "");
+  if (VIEWS.indexOf(h) < 0) h = "datos";
+  VIEWS.forEach(function(v){ document.getElementById("v-" + v).classList.toggle("active", v === h); });
+  document.querySelectorAll("#tabs a").forEach(function(a){ a.classList.toggle("active", a.getAttribute("data-v") === h); });
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("toggle", function(e){ var p = e.target.getAttribute && e.target.getAttribute("data-adv"); if (p) OPEN_ADV[p] = e.target.open; }, true);
+
+load(); renderExSelects(); renderAll(); renderRefs(); route();
+</script>
+</body>
+</html>
